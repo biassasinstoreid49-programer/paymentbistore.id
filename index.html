@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway - Bayar Mudah & Cepat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --primary-light: #64b5f6;
+            --secondary: #f5f9ff;
+            --accent: #ff6d00;
+            --text: #333;
+            --text-light: #666;
+            --white: #fff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .payment-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .payment-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 12px;
+            background: var(--secondary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .payment-method:hover {
+            background: var(--primary-light);
+            color: var(--white);
+            transform: scale(1.02);
+        }
+
+        .payment-method.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--white);
+        }
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            width: 60px;
+            text-align: center;
+        }
+
+        .dana { color: #00a2ff; }
+        .gopay { color: #00aa13; }
+        .ovo { color: #4c2a86; }
+
+        .payment-details {
+            flex: 1;
+        }
+
+        .payment-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .payment-number {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .payment-account {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .payment-method:hover .payment-account {
+            color: var(--white);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--primary);
+            border: 1px solid var(--primary-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        .instructions {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .steps {
+            margin: 20px 0;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .channels {
+            margin-top: 40px;
+        }
+
+        .channel-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .channel-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--primary-light);
+            margin-top: 40px;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .notification i {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-wallet"></i>
+                PAYMENT GATEWAY
+            </div>
+            <p class="tagline">Bayar dengan mudah dan cepat menggunakan DANA, GOPAY, atau OVO. Transaksi aman dan terpercaya.</p>
+        </header>
+
+        <div class="main-content">
+            <div class="payment-section">
+                <h2 class="section-title">
+                    <i class="fas fa-credit-card"></i>
+                    Metode Pembayaran
+                </h2>
+                
+                <div class="payment-methods">
+                    <div class="payment-method active" data-method="dana">
+                        <div class="payment-icon">
+                            <i class="fab fa-cc-dana dana"></i>
+                        </div>
+                        <div class="payment-details">
+                            <div class="payment-name">DANA</div>
+                            <div class="payment-number">081373789250</div>
+                            <div class="payment-account">a/n MUHAMMAD HIZBIL AMIN</div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="openPaymentApp('dana')">
+                                    <i class="fas fa-external-link-alt"></i> Buka DANA
+                                </button>
+                                <button class="btn btn-secondary" onclick="copyToClipboard('081373789250', 'DANA')">
+                                    <i class="fas fa-copy"></i> Salin
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" data-method="gopay">
+                        <div class="payment-icon">
+                            <i class="fab fa-google-wallet gopay"></i>
+                        </div>
+                        <div class="payment-details">
+                            <div class="payment-name">GOPAY</div>
+                            <div class="payment-number">081373789250</div>
+                            <div class="payment-account">a/n MUHAMMAD HIZBIL AMIN</div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="openPaymentApp('gopay')">
+                                    <i class="fas fa-external-link-alt"></i> Buka Gojek
+                                </button>
+                                <button class="btn btn-secondary" onclick="copyToClipboard('081373789250', 'GOPAY')">
+                                    <i class="fas fa-copy"></i> Salin
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" data-method="ovo">
+                        <div class="payment-icon">
+                            <i class="fas fa-mobile-alt ovo"></i>
+                        </div>
+                        <div class="payment-details">
+                            <div class="payment-name">OVO</div>
+                            <div class="payment-number">081373789250</div>
+                            <div class="payment-account">a/n MUHAMMAD HIZBIL AMIN</div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="openPaymentApp('ovo')">
+                                    <i class="fas fa-external-link-alt"></i> Buka OVO
+                                </button>
+                                <button class="btn btn-secondary" onclick="copyToClipboard('081373789250', 'OVO')">
+                                    <i class="fas fa-copy"></i> Salin
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <button class="btn btn-whatsapp" style="width: 100%;" onclick="openWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Konfirmasi Pembayaran via WhatsApp
+                    </button>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h2 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Cara Pembayaran
+                </h2>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Pilih Metode Pembayaran</div>
+                            <p>Klik salah satu metode pembayaran (DANA, GOPAY, atau OVO) di samping.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Salin Nomor atau Buka Aplikasi</div>
+                            <p>Salin nomor telepon yang tertera atau buka langsung aplikasi pembayaran.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Lakukan Transfer</div>
+                            <p>Transfer ke nomor yang tertera dengan nominal sesuai pesanan Anda.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Konfirmasi Pembayaran</div>
+                            <p>Kirim bukti transfer ke admin melalui WhatsApp untuk konfirmasi.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="channels">
+                    <h2 class="section-title">
+                        <i class="fas fa-broadcast-tower"></i>
+                        Saluran Informasi
+                    </h2>
+                    <p>Ikuti saluran WhatsApp kami untuk mendapatkan informasi terbaru dan promo spesial.</p>
+                    <a href="https://whatsapp.com/channel/0029VartfI88fewwkJAZDf32" class="channel-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Ikuti Saluran WhatsApp Kami
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Payment Gateway. Semua transaksi dilindungi dan terjamin keamanannya.</p>
+            <p>Hubungi Admin: 081373789250 (WhatsApp Only)</p>
+        </footer>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text">Teks notifikasi</span>
+    </div>
+
+    <script>
+        // Fungsi untuk membuka aplikasi pembayaran
+        function openPaymentApp(method) {
+            let url = '';
+            
+            switch(method) {
+                case 'dana':
+                    url = 'dana://';
+                    break;
+                case 'gopay':
+                    url = 'gojek://';
+                    break;
+                case 'ovo':
+                    url = 'ovo://';
+                    break;
+            }
+            
+            // Coba buka aplikasi
+            window.location.href = url;
+            
+            // Fallback ke Play Store jika aplikasi tidak terinstall
+            setTimeout(function() {
+                switch(method) {
+                    case 'dana':
+                        window.location.href = 'https://play.google.com/store/apps/details?id=com.dana';
+                        break;
+                    case 'gopay':
+                        window.location.href = 'https://play.google.com/store/apps/details?id=com.gojek.app';
+                        break;
+                    case 'ovo':
+                        window.location.href = 'https://play.google.com/store/apps/details?id=id.ovo';
+                        break;
+                }
+            }, 500);
+            
+            showNotification(`Membuka aplikasi ${method.toUpperCase()}...`);
+        }
+        
+        // Fungsi untuk menyalin nomor ke clipboard
+        function copyToClipboard(text, method) {
+            navigator.clipboard.writeText(text).then(function() {
+                showNotification(`Nomor ${method} berhasil disalin!`);
+            }, function() {
+                // Fallback untuk browser lama
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showNotification(`Nomor ${method} berhasil disalin!`);
+                } catch (err) {
+                    showNotification('Gagal menyalin nomor');
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+        
+        // Fungsi untuk membuka WhatsApp
+        function openWhatsApp() {
+            const phoneNumber = "081373789250";
+            const message = "Halo admin, saya sudah melakukan pembayaran. Berikut bukti transfernya:";
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(function() {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Event listener untuk metode pembayaran
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                // Hapus kelas active dari semua metode
+                document.querySelectorAll('.payment-method').forEach(m => {
+                    m.classList.remove('active');
+                });
+                
+                // Tambahkan kelas active ke metode yang diklik
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
